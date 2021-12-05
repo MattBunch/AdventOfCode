@@ -5,8 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "day1": "node Day1/app.js",
-    "day2": "node Day2/app.js",
+    "day1": "node 2021/Day1/app.js",
+    "day2": "node 2021/Day2/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
