@@ -8,6 +8,7 @@
     "day1sol1": "node 2021/Day1/solution1.js",
     "day2sol1": "node 2021/Day2/solution1.js",
     "day2sol2": "node 2021/Day2/solution2.js",
+    "day3sol1": "node 2021/Day3/solution1.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
