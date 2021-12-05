@@ -1,0 +1,20 @@
+{
+  "name": "adventofcode2021",
+  "version": "1.0.0",
+  "description": "My submissions for Advent of Code 2021!",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattBunch/AdventOfCode2021.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MattBunch/AdventOfCode2021/issues"
+  },
+  "homepage": "https://github.com/MattBunch/AdventOfCode2021#readme"
+}
