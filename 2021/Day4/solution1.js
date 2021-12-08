@@ -1,4 +1,3 @@
-import { data } from "./input.js";
 import bingoBoard from "./bingoBoard.js";
 
 const game = (inputBingoBoards, inputSequence) => {
