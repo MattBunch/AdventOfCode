@@ -15,6 +15,7 @@ export default class bingoBoard {
       }
     }
     this.boardSize = boardSize;
+    this.marked = false;
   }
 
   checkForWin() {
@@ -46,5 +47,9 @@ export default class bingoBoard {
     for (const bingoNumberObj of this.bingoNumbers) {
       if (inputN === bingoNumberObj.num) bingoNumberObj.marked = true;
     }
+  }
+
+  markBoard() {
+    this.marked = true;
   }
 }

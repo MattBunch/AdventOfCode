@@ -6,6 +6,7 @@ const game = (inputBingoBoards, inputSequence) => {
       board.checkForMatch(n);
       if (board.checkForWin()) return { board, n };
     }
+    console.log(inputBingoBoards.map((x) => x.bingoNumbers));
   }
 
   return null;
@@ -38,8 +39,6 @@ const processLineByLine = async () => {
     input: fileStream,
     crlfDelay: Infinity,
   });
-  // Note: we use the crlfDelay option to recognize all instances of CR LF
-  // ('\r\n') in input.txt as a single line break.
 
   const output = {
     sequence: null,
@@ -51,6 +50,7 @@ const processLineByLine = async () => {
   let newBoard = [];
   for await (const line of rl) {
     lineCounter++;
+
     // * line sequence
     if (lineCounter === 1) {
       output.sequence = JSON.parse(`[${line}]`);
