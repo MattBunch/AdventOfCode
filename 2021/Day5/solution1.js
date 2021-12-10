@@ -40,11 +40,13 @@ const getNodeOnBoardByXY = (inputX, inputY, inputBoard) => {
 // * before
 
 let x1, x2, y1, y2;
+
 const board = createBoard(10);
 
 // printBoard(board);
 
 const getHydrothermalVenture = (input) => {
+  let xyPointsContainer = [];
   for (const str of input) {
     const arr = str.match(/\d+/g);
     x1 = parseInt(arr[0]);
@@ -56,9 +58,11 @@ const getHydrothermalVenture = (input) => {
     const getMoves = () => {
       const getXYPoints = (vertical) => {
         const output = [];
+        // * dist1 = starting
+        // * dist2 = finishing
         let dist1, dist2;
         if (vertical) {
-          if (y1 > y2) {
+          if (y1 < y2) {
             dist1 = y1;
             dist2 = y2;
           } else {
@@ -66,7 +70,7 @@ const getHydrothermalVenture = (input) => {
             dist2 = y1;
           }
         } else {
-          if (x1 > x2) {
+          if (x1 < x2) {
             dist1 = x1;
             dist2 = x2;
           } else {
@@ -75,39 +79,45 @@ const getHydrothermalVenture = (input) => {
           }
         }
 
+        console.log("dist1", dist1);
+        console.log("dist2", dist2);
+
         for (let i = dist1; i < dist2; i++) {
-          output.push([vertical ? x1 : y1, i]);
+          // console.log(i);
+          // console.log(vertical ? x1 : y1);
+          // console.log([vertical ? x1 : y1], [i]);
+          // console.log(
+          //   `${vertical ? x1.toString() : y1.toString()}, ${i.toString()}`
+          // );
+          // console.log([[vertical ? x1 : y1], [i]]);
+          output.push(
+            `${vertical ? x1.toString() : y1.toString()}, ${i.toString()}`
+          );
         }
-        console.log(output);
+        output.push(`${x1}, ${y1}`);
         return output;
       };
 
       // * moving vertical
       // * horizontal x axis stays the same
       if (x1 === x2) {
-        console.log("y1", y1);
-        console.log("y2", y2);
-
+        // console.log("y1", y1);
+        // console.log("y2", y2);
         // * alter nodes:
         // * moving forward
-        getXYPoints(true);
-
-        // if (isDistancePositive(y1, y2)) {
-        //   for (let i = 0; i < getDistance(y1, y2); i++) {
-        //     console.log(i);
-        //   }
-        // } else {
-        //   for (let i = getDistance(y1, y2); i >= 0; i--) {
-        //     console.log(i);
-        //   }
-        // }
+        // console.log("GETTING XY POINTS NOW");
+        // xyPointsContainer.push(getXYPoints(true));
+        // console.log(xyPointsContainer);
       }
 
       // * horizontal
       // * vertical y axis stays the same
 
       if (y1 === y2) {
-        getXYPoints(false);
+        console.log("x1", x1);
+        console.log("x2", x2);
+        xyPointsContainer.push(getXYPoints(false));
+        console.log(xyPointsContainer);
       }
     };
 
