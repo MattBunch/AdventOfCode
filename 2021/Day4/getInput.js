@@ -26,7 +26,7 @@ const getInput = async () => {
       continue;
     }
 
-    if (line.length === 0) {
+    if (line.length === 0 && newBoard.length != 0) {
       output.boards.push(newBoard);
       newBoard = [];
     }
