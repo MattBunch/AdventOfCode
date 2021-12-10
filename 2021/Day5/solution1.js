@@ -54,7 +54,7 @@ const r = /\d+/g;
 // printBoard(board);
 
 const getHydrothermalVenture = (input) => {
-  let xyPointsContainer = [];
+  const xyPointsContainer = [];
   for (const str of input) {
     const arr = str.match(r);
     x1 = parseInt(arr[0]);
@@ -64,17 +64,16 @@ const getHydrothermalVenture = (input) => {
 
     const getMoves = () => {
       const getXYPoints = (vertical) => {
-        const output = [];
         // * dist1 = starting
         // * dist2 = finishing
         let dist1, dist2;
         if (vertical) {
           if (y1 < y2) {
-            output.push(`${x1}, ${y2}`);
+            xyPointsContainer.push(`${x1}, ${y2}`);
             dist1 = y1;
             dist2 = y2;
           } else {
-            output.push(`${x1}, ${y1}`);
+            xyPointsContainer.push(`${x1}, ${y1}`);
             dist1 = y2;
             dist2 = y1;
           }
@@ -82,35 +81,33 @@ const getHydrothermalVenture = (input) => {
           if (x1 < x2) {
             dist1 = x1;
             dist2 = x2;
-            output.push(`${x2}, ${y1}`);
+            xyPointsContainer.push(`${x2}, ${y1}`);
           } else {
             dist1 = x2;
             dist2 = x1;
-            output.push(`${x1}, ${y1}`);
+            xyPointsContainer.push(`${x1}, ${y1}`);
           }
         }
 
         for (let i = dist1; i < dist2; i++) {
           if (vertical) {
-            output.push(`${x1.toString()}, ${i.toString()}`);
+            xyPointsContainer.push(`${x1.toString()}, ${i.toString()}`);
           } else {
-            output.push(`${i.toString()}, ${y1.toString()}`);
+            xyPointsContainer.push(`${i.toString()}, ${y1.toString()}`);
           }
         }
-
-        return output;
       };
 
       // * moving vertical
       // * horizontal x axis stays the same
       if (x1 === x2) {
-        xyPointsContainer.push(getXYPoints(true));
+        getXYPoints(true);
       }
 
       // * horizontal
       // * vertical y axis stays the same
       if (y1 === y2) {
-        xyPointsContainer.push(getXYPoints(false));
+        getXYPoints(false);
       }
     };
 
@@ -120,14 +117,12 @@ const getHydrothermalVenture = (input) => {
   // console.log("xyPointsContainer", xyPointsContainer);
 
   for (const move of xyPointsContainer) {
-    console.log(move);
-    for (const coordinate of move) {
-      console.log(coordinate.match(r));
-      const x = parseInt(coordinate.match(r)[0]);
-      const y = parseInt(coordinate.match(r)[1]);
-      console.log(x, y);
-      getNodeOnBoardByXY(x, y, board).increaseMove();
-    }
+    // console.log(move);
+    // console.log(move.match(r));
+    const x = parseInt(move.match(r)[0]);
+    const y = parseInt(move.match(r)[1]);
+    // console.log(x, y);
+    getNodeOnBoardByXY(x, y, board).increaseMove();
   }
 
   printBoard(board);
