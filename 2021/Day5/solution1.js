@@ -1,4 +1,5 @@
 import { data } from "./input.js";
+const r = /\d+/g;
 
 class Node {
   constructor(x, y, value) {
@@ -17,6 +18,16 @@ class Node {
   }
 }
 
+const getLargestNumber = (input) => {
+  let output = 0;
+  for (const str of input) {
+    for (const num of str.match(r)) {
+      if (parseInt(num) > output) output = parseInt(num);
+    }
+  }
+  return output;
+};
+
 const createBoard = (size) => {
   const output = [];
   for (let i = 0; i < size; i++) {
@@ -27,13 +38,16 @@ const createBoard = (size) => {
   return output;
 };
 
+const board = createBoard(getLargestNumber(data) + 1);
+
 const printBoard = (inputBoard) => {
   const len = inputBoard.length / 10;
   let counter = 0;
   for (let i = 0; i < len; i++) {
     let printStr = "";
     for (let j = 0; j < len; j++) {
-      printStr += inputBoard[counter].value;
+      if (inputBoard[counter] != undefined)
+        printStr += inputBoard[counter].value;
       counter++;
     }
     console.log(printStr);
@@ -46,15 +60,11 @@ const getNodeOnBoardByXY = (inputX, inputY, inputBoard) => {
   }
 };
 
-let x1, x2, y1, y2;
-
-const board = createBoard(10);
-const r = /\d+/g;
-
-// printBoard(board);
-
 const getHydrothermalVenture = (input) => {
   const xyPointsContainer = [];
+
+  let x1, x2, y1, y2;
+
   for (const str of input) {
     const arr = str.match(r);
     x1 = parseInt(arr[0]);
@@ -136,5 +146,9 @@ const getHydrothermalVenture = (input) => {
 
   return output;
 };
+
+for (const node of board) {
+  if (node.value === undefined) console.log(node);
+}
 
 console.log(getHydrothermalVenture(data));
