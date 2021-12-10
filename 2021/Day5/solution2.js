@@ -74,8 +74,6 @@ const getHydrothermalVenture = (input) => {
 
     const getMoves = () => {
       const getXYPoints = (vertical) => {
-        // * dist1 = starting
-        // * dist2 = finishing
         let starting, destination;
         if (vertical) {
           if (y1 < y2) {
@@ -200,8 +198,6 @@ const getHydrothermalVenture = (input) => {
 
     getNodeOnBoardByXY(x, y, board).increaseMove();
   }
-
-  // printBoard(board);
 
   let output = 0;
   for (const n of board) {
