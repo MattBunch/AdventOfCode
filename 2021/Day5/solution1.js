@@ -13,7 +13,7 @@ class Node {
   }
 
   isTwoLinesOverlapping() {
-    return this.value > 2;
+    return this.value >= 2;
   }
 }
 
@@ -132,7 +132,14 @@ const getHydrothermalVenture = (input) => {
 
   printBoard(board);
 
-  return "";
+  let output = 0;
+  for (const n of board) {
+    if (n.isTwoLinesOverlapping()) {
+      output++;
+    }
+  }
+
+  return output;
 };
 
 console.log(getHydrothermalVenture(data));
