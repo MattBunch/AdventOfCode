@@ -6,6 +6,15 @@ class Node {
     this.y = y;
     this.value = value;
   }
+
+  increaseMove() {
+    if (this.value === ".") this.value = 0;
+    this.value++;
+  }
+
+  isTwoLinesOverlapping() {
+    return this.value > 2;
+  }
 }
 
 const createBoard = (size) => {
@@ -37,18 +46,17 @@ const getNodeOnBoardByXY = (inputX, inputY, inputBoard) => {
   }
 };
 
-// * before
-
 let x1, x2, y1, y2;
 
 const board = createBoard(10);
+const r = /\d+/g;
 
 // printBoard(board);
 
 const getHydrothermalVenture = (input) => {
   let xyPointsContainer = [];
   for (const str of input) {
-    const arr = str.match(/\d+/g);
+    const arr = str.match(r);
     x1 = parseInt(arr[0]);
     y1 = parseInt(arr[1]);
     x2 = parseInt(arr[2]);
@@ -62,12 +70,10 @@ const getHydrothermalVenture = (input) => {
         let dist1, dist2;
         if (vertical) {
           if (y1 < y2) {
-            console.log("y1 < y2");
             output.push(`${x1}, ${y2}`);
             dist1 = y1;
             dist2 = y2;
           } else {
-            console.log("y1 > y2");
             output.push(`${x1}, ${y1}`);
             dist1 = y2;
             dist2 = y1;
@@ -84,9 +90,6 @@ const getHydrothermalVenture = (input) => {
           }
         }
 
-        // console.log("dist1", dist1);
-        // console.log("dist2", dist2);
-
         for (let i = dist1; i < dist2; i++) {
           if (vertical) {
             output.push(`${x1.toString()}, ${i.toString()}`);
@@ -100,28 +103,34 @@ const getHydrothermalVenture = (input) => {
 
       // * moving vertical
       // * horizontal x axis stays the same
-
       if (x1 === x2) {
         xyPointsContainer.push(getXYPoints(true));
       }
 
       // * horizontal
       // * vertical y axis stays the same
-
       if (y1 === y2) {
-        // console.log(arr);
-        // console.log("x1", x1);
-        // console.log("x2", x2);
         xyPointsContainer.push(getXYPoints(false));
-        // console.log(xyPointsContainer);
       }
     };
 
     getMoves();
-    // TODO: do something with the xy container
   }
 
-  console.log("xyPointsContainer", xyPointsContainer);
+  // console.log("xyPointsContainer", xyPointsContainer);
+
+  for (const move of xyPointsContainer) {
+    console.log(move);
+    for (const coordinate of move) {
+      console.log(coordinate.match(r));
+      const x = parseInt(coordinate.match(r)[0]);
+      const y = parseInt(coordinate.match(r)[1]);
+      console.log(x, y);
+      getNodeOnBoardByXY(x, y, board).increaseMove();
+    }
+  }
+
+  printBoard(board);
 
   return "";
 };
