@@ -12,6 +12,9 @@ export const data =
   //   "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce",
   // ];
 
+  // "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae abcdeg cafbge fegbdc",
+  // "bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd | ed bcgafe cbegaf dfcage",
+
   [
     "cgdf eagcbf fc adefg eacdb fbedga geafcd efc dacfe fdgaecb | dcefbag dgcf fc daefc",
     "bdecf dcagb gbf gcbdf deacbf fg fdebgc fegdcba dgef bgefac | dbfec gbacefd gf bfg",
