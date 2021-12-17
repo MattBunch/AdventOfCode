@@ -3,20 +3,18 @@ import { data } from "./input.js";
 const starterChars = ["(", "[", "{", "<"];
 const finisherChars = [")", "]", "}", ">"];
 
-const rx1 = /\[([^\]]+)]/;
-const rx2 = /\(([^)]+)\)/;
-const rx3 = /{([^}]+)}/;
-const rx4 = /{([^>]+)}/;
-
-class Chunk {
-  constructor(sequence) {
-    this.sequence = sequence;
-    this.isComplete = false;
-    this.chunks = [];
+const addNum = (inputChar) => {
+  switch (inputChar) {
+    case ")":
+      return 3;
+    case "]":
+      return 57;
+    case "}":
+      return 1197;
+    case ">":
+      return 25137;
   }
-
-  getAllChunks() {}
-}
+};
 
 const matchChunk = (inputChar) => {
   switch (inputChar) {
@@ -32,39 +30,33 @@ const matchChunk = (inputChar) => {
 };
 
 const findCorruptedLines = (input) => {
-  for (const str of input) {
-    new Chunk(str).getAllChunks();
+  let output = 0;
+  for (const [index, str] of input.entries()) {
+    const arr = [];
+    for (const char of str.split("")) {
+      // console.log(char);
+      if (starterChars.includes(char)) {
+        arr.push(char);
+        // console.log(index, arr);
+        continue;
+      }
+
+      const lastSavedStarterChar = arr[arr.length - 1];
+      const isMatch = matchChunk(lastSavedStarterChar) === char;
+      console.log(index, isMatch, `${arr[arr.length - 1]} - ${char}`);
+      // console.log(isMatch);
+      if (isMatch) arr.pop();
+      else {
+        output += addNum(char);
+        break;
+      }
+
+      // console.log(index, `${arr.pop()} - ${char}`);
+      // console.log(`${arr[arr.length - 1]} - ${char}`);
+    }
+    console.log("\n");
   }
-  return "";
+  return output;
 };
 
 console.log(findCorruptedLines(data));
-
-// const counter = new Array(4).fill(0);
-// console.log(counter);
-// switch (char) {
-//   case "(":
-//     counter[0]++;
-//     break;
-//   case "[":
-//     counter[1]++;
-//     break;
-//   case "{":
-//     counter[2]++;
-//     break;
-//   case "<":
-//     counter[3]++;
-//     break;
-//   case ")":
-//     counter[0]--;
-//     break;
-//   case "]":
-//     counter[1]--;
-//     break;
-//   case "}":
-//     counter[2]--;
-//     break;
-//   case ">":
-//     counter[3]--;
-//     break;
-// }
