@@ -6,13 +6,13 @@ const finisherChars = [")", "]", "}", ">"];
 const addNum = (inputChar) => {
   switch (inputChar) {
     case ")":
-      return 3;
+      return 1;
     case "]":
-      return 57;
+      return 2;
     case "}":
-      return 1197;
+      return 3;
     case ">":
-      return 25137;
+      return 4;
   }
 };
 
@@ -30,26 +30,33 @@ const matchChunk = (inputChar) => {
 };
 
 const findCorruptedLines = (input) => {
-  let output = 0;
-  for (const [index, str] of input.entries()) {
+  const scores = [];
+  for (const str of input) {
     const arr = [];
+    let isCorrupted = false;
     for (const char of str.split("")) {
       if (starterChars.includes(char)) {
         arr.push(char);
         continue;
       }
 
-      const lastSavedStarterChar = arr[arr.length - 1];
-      const isMatch = matchChunk(lastSavedStarterChar) === char;
-      console.log(index, isMatch, `${arr[arr.length - 1]} - ${char}`);
-      if (isMatch) arr.pop();
+      // * for finding corrupted lines and discarding them
+      if (matchChunk(arr[arr.length - 1]) === char) arr.pop();
       else {
-        output += addNum(char);
+        isCorrupted = true;
         break;
       }
     }
+    if (isCorrupted) continue;
+
+    let score = 0;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      score *= 5;
+      score += addNum(matchChunk(arr[i]));
+    }
+    scores.push(score);
   }
-  return output;
+  return scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)];
 };
 
 console.log(findCorruptedLines(data));
