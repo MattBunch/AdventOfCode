@@ -4,7 +4,7 @@ const createCoords = (input) => {
   const output = [];
   for (const item of input) {
     const arr = item.split(",");
-    output.push({ x: arr[0], y: arr[1] });
+    output.push({ x: parseInt(arr[0]), y: parseInt(arr[1]) });
   }
   return output;
 };
@@ -13,31 +13,41 @@ const parseFoldInstructions = (input) => {
   const output = [];
   for (const item of input) {
     const arr = item.split("=");
-    output.push({ direction: arr[0], len: arr[1] });
+    output.push({ direction: arr[0], foldPoint: parseInt(arr[1]) });
   }
-  console.log(output);
   return output;
 };
 
 const fold = (inputCoords, inputFoldInstructions) => {
-  // const dir = inputFoldInstructions.direction
-  // for (const coord of inputCoords){
-  //   console.log(coord[dir])
-  // }
+  const dir = inputFoldInstructions[0].direction;
+  const foldPoint = inputFoldInstructions[0].foldPoint;
+  console.log(dir);
+  console.log(inputCoords);
+  for (const coord of inputCoords) {
+    if (coord[dir] > foldPoint) {
+      coord[dir] -= foldPoint;
+    }
+  }
+
+  return inputCoords;
 };
 
 const countDots = (input) => {
-  // create coordinates array
-  const coords = createCoords(input.coords);
-  const foldInstructions = parseFoldInstructions(input.f);
+  const folded = fold(
+    createCoords(input.coords),
+    parseFoldInstructions(input.f)
+  );
 
-  // fold
-  console.log(coords);
-  console.log(foldInstructions);
+  const output = folded.reduce((unique, o) => {
+    if (!unique.some((obj) => obj.x === o.x && obj.y === o.y)) {
+      unique.push(o);
+    }
+    return unique;
+  }, []);
 
-  fold(createCoords(input.coords), parseFoldInstructions(input.f));
+  console.log("output", output);
 
-  return foldInstructions;
+  return output.length;
 };
 
-console.log(fold(data));
+console.log(countDots(data));
