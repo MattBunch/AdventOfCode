@@ -31,6 +31,8 @@
     "day12sol2": "node 2021/Day12/solution2.js",
     "day13sol1": "node 2021/Day13/solution1.js",
     "day13sol2": "node 2021/Day13/solution2.js",
+    "day14sol1": "node 2021/Day14/solution1.js",
+    "day14sol2": "node 2021/Day14/solution2.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
